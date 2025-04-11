@@ -4,7 +4,6 @@
 
 #define MAX_ALUNOS_POR_DISCIPLINA 3
 
-// Estrutura de disciplina global
 typedef struct Disciplina {
     char nome[50];
     char codigo[10];
@@ -13,13 +12,11 @@ typedef struct Disciplina {
     struct Disciplina *prox;
 } Disciplina;
 
-// Estrutura para disciplinas de um aluno (ponteiro para disciplina global)
 typedef struct DisciplinaAluno {
     Disciplina *disciplina;
     struct DisciplinaAluno *prox;
 } DisciplinaAluno;
 
-// Estrutura de aluno
 typedef struct Aluno {
     char nome[50];
     int matricula;
@@ -27,11 +24,10 @@ typedef struct Aluno {
     struct Aluno *prox;
 } Aluno;
 
-// Cabeçalho das listas
+
 Disciplina *listaDisciplinas = NULL;
 Aluno *listaAlunos = NULL;
 
-// Função para criar nova disciplina
 Disciplina *criarDisciplina(char nome[], char codigo[], char docente[]) {
     Disciplina *nova = (Disciplina *)malloc(sizeof(Disciplina));
     strcpy(nova->nome, nome);
@@ -43,7 +39,6 @@ Disciplina *criarDisciplina(char nome[], char codigo[], char docente[]) {
     return nova;
 }
 
-// Buscar disciplina por nome
 Disciplina *buscarDisciplina(char nome[]) {
     Disciplina *temp = listaDisciplinas;
     while (temp != NULL) {
@@ -53,7 +48,6 @@ Disciplina *buscarDisciplina(char nome[]) {
     return NULL;
 }
 
-// Adicionar aluno
 void adicionarAluno(char nome[], int matricula) {
     Aluno *novo = (Aluno *)malloc(sizeof(Aluno));
     strcpy(novo->nome, nome);
@@ -63,7 +57,6 @@ void adicionarAluno(char nome[], int matricula) {
     listaAlunos = novo;
 }
 
-// Matricular aluno em disciplina
 void matricularAluno(int matricula, char nomeDisciplina[]) {
     Aluno *aluno = listaAlunos;
     while (aluno != NULL && aluno->matricula != matricula)
@@ -93,7 +86,6 @@ void matricularAluno(int matricula, char nomeDisciplina[]) {
     disciplina->qtdAlunos++;
 }
 
-// Buscar alunos por disciplina
 void buscarAlunosPorDisciplina(char nomeDisciplina[]) {
     Disciplina *disciplina = buscarDisciplina(nomeDisciplina);
     if (!disciplina) {
@@ -116,7 +108,6 @@ void buscarAlunosPorDisciplina(char nomeDisciplina[]) {
     }
 }
 
-// Imprimir dados de aluno
 void imprimirAluno(Aluno *aluno) {
     printf("Aluno: %s | Matricula: %d\n", aluno->nome, aluno->matricula);
     printf("Disciplinas:\n");
@@ -128,7 +119,6 @@ void imprimirAluno(Aluno *aluno) {
     printf("\n");
 }
 
-// Imprimir todos os alunos
 void imprimirTodosAlunos() {
     Aluno *temp = listaAlunos;
     while (temp) {
@@ -137,7 +127,6 @@ void imprimirTodosAlunos() {
     }
 }
 
-// Buscar e imprimir aluno específico
 void buscarAlunoPorNome(char nome[]) {
     Aluno *temp = listaAlunos;
     while (temp) {
@@ -167,18 +156,15 @@ int main() {
     criarDisciplina("Calculo", "MAT101", "Prof. João");
     criarDisciplina("Estrutura de Dados", "INF202", "Profa. Maria");
 
-    // Adicionar alunos
     adicionarAluno("Rayssa", 101);
     adicionarAluno("Carlos", 102);
     adicionarAluno("Ana", 103);
 
-    // Matricular alunos
     matricularAluno(101, "Calculo");
     matricularAluno(101, "Estrutura de Dados");
     matricularAluno(102, "Calculo");
     matricularAluno(103, "Calculo");
 
-    // Testes
     printf("\n--- Buscar Alunos em Calculo ---\n");
     buscarAlunosPorDisciplina("Calculo");
 
